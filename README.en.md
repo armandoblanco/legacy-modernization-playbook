@@ -47,7 +47,7 @@ To add a new technology see [`docs/technologies/README.md`](docs/technologies/RE
 ### Step 1 — Clone
 
 ```bash
-git clone https://github.com/<org>/modernizacion-legacy-copilot.git my-project
+git clone https://github.com/armandoblanco/legacy-modernization-playbook.git my-project
 cd my-project
 rm -rf .git && git init
 ```
@@ -97,20 +97,38 @@ cp -r /path/to/legacy-code/* legacy/
 
 ### Step 5 — Start Phase 1 (Assessment)
 
-For VB:
+For **VB6 / VB.NET**:
 
 ```text
 @vb-assessment Analyze the system in legacy/
 ```
 
-For other technologies the agents are still placeholders — use the templates in [`.github/agents/_templates/`](.github/agents/_templates/) to create them.
+For **.NET Framework 2.0–4.8**:
+
+```text
+@dotnet-assessment Analyze the system in legacy/
+```
+
+For other technologies, use the templates in [`.github/agents/_templates/`](.github/agents/_templates/) to create the agents.
 
 ### Step 6 — Continue with Planning, Execution and Cloud
 
+**VB:**
 ```text
 @vb-planning            (Phase 2)
 @vb-migration           (Phase 3)
-@cloud-architect        (Phase 4)
+```
+
+**.NET Framework:**
+```text
+@dotnet-planning        (Phase 2)
+@dotnet-migration       (Phase 3)
+```
+
+**Cloud (any technology):**
+```text
+@cloud-architect        (Phase 4 multi-cloud)
+@azure-architect        (Phase 4 Azure — Mermaid + validated prices)
 ```
 
 ---
@@ -118,28 +136,43 @@ For other technologies the agents are still placeholders — use the templates i
 ## Repo structure
 
 ```
-modernizacion-legacy-copilot/
+legacy-modernization-playbook/
 ├── README.md / README.en.md
 ├── bootstrap.sh / bootstrap.ps1
 ├── docs/
 │   ├── methodology/                    Tech-agnostic methodology (5 phases)
 │   ├── shared/                         Lessons, anti-patterns (cross-cutting)
 │   └── technologies/
-│       ├── vb/                         Full coverage
-│       ├── dotnet-framework/ cobol/ java/ python/   Placeholders
+│       ├── vb/                         ✅ Full coverage
+│       ├── dotnet-framework/           ✅ Full coverage
+│       ├── cobol/ java/ python/        Placeholders
 ├── assessment/                          Phase 0 outputs (per project + templates)
 │   ├── _templates/                      tco-actual, roi, risk, exec, security
 │   └── {ProjectName}/                   {category}-DDMMYYYY.{md,html}
 ├── scripts/                             md2html.{sh,py} (offline HTML)
 ├── cloud-architectures/                Phase 4
-│   ├── azure/                          5 documented patterns
+│   ├── azure/                          5 documented patterns + @azure-architect
 │   ├── aws/ gcp/ on-premise/           Placeholders
 │   └── _templates/                     Cloud ADR template
 ├── .github/
-│   ├── agents/{shared, vb, _templates}
-│   ├── instructions/{vb-target, _templates}
-│   └── prompts/{shared, vb}
-├── workshop/{shared, vb}
+│   ├── agents/
+│   │   ├── shared/                     @business-case-analyst, @security-assessor, @cloud-architect, @azure-architect
+│   │   ├── vb/                         3 VB agents (Phases 1-3)
+│   │   ├── dotnet-framework/           3 .NET Framework agents (Phases 1-3)
+│   │   └── _templates/                 Templates for new technologies
+│   ├── instructions/
+│   │   ├── vb-target/                  csharp / winforms / wpf-mvvm / blazor
+│   │   ├── dotnet-target/              csharp-modern (.NET 8/9)
+│   │   ├── shared/                     testing-strategy (pyramid, Testcontainers, parity)
+│   │   └── _templates/
+│   └── prompts/
+│       ├── shared/                     business-case, cloud architecture, azure price validation
+│       ├── vb/                         analyze-feature, generate-adr, migrate-module, validate-parity
+│       └── dotnet-framework/           analyze-project, generate-adr, migrate-project, validate-parity
+├── workshop/
+│   ├── shared/                         lab-00 (business case), lab-04 (cloud)
+│   ├── vb/                             lab-01 (assessment VB)
+│   └── dotnet-framework/               lab-01 (assessment .NET Framework)
 └── legacy/                             (empty) client code goes here
 ```
 
@@ -161,6 +194,35 @@ modernizacion-legacy-copilot/
 - **Not a syntax converter.** For 1:1 line-by-line conversion there are cheaper, more specific commercial tools.
 - **No legacy sample code included.** You bring the client's code into `legacy/`.
 - **No project duration estimates.** Estimation belongs in the commercial proposal, outside the methodology scope.
+
+---
+
+## Copilot Agents included
+
+### Shared (any technology)
+
+- [`@business-case-analyst`](.github/agents/shared/00-business-case.agent.md) — Phase 0
+- [`@security-assessor`](.github/agents/shared/02-security-assessor.agent.md) — Phase 0 (whitehat / pentest)
+- [`@cloud-architect`](.github/agents/shared/04-cloud-architect.agent.md) — Phase 4 (multi-cloud)
+- [`@azure-architect`](.github/agents/shared/05-azure-architect.agent.md) — Phase 4 (Azure: Mermaid + validated prices via Retail Prices API)
+
+### Technology-specific
+
+- **VB:** [`@vb-assessment`](.github/agents/vb/01-vb-assessment.agent.md) · [`@vb-planning`](.github/agents/vb/02-vb-planning.agent.md) · [`@vb-migration`](.github/agents/vb/03-vb-migration.agent.md)
+- **.NET Framework:** [`@dotnet-assessment`](.github/agents/dotnet-framework/01-dotnet-assessment.agent.md) · [`@dotnet-planning`](.github/agents/dotnet-framework/02-dotnet-planning.agent.md) · [`@dotnet-migration`](.github/agents/dotnet-framework/03-dotnet-migration.agent.md)
+- Other technologies: use templates in [`.github/agents/_templates/`](.github/agents/_templates/)
+
+### Suggested models
+
+| Task type | Recommended model | Why |
+|---|---|---|
+| Assessment, business case (high read volume) | **Claude Sonnet 4.5** | Optimal cost/performance for reading large codebases |
+| Planning, ADRs, architectural decisions | **Claude Opus 4.1** | Deep reasoning |
+| Migration (code refactoring) | **Claude Opus 4.1** | Precision in transformations |
+| Security assessment | **Claude Opus 4.1** | Adversarial analysis |
+| Cloud architecture | **Claude Opus 4.1** | Trade-offs and price validation |
+
+Models are declared in each agent's frontmatter. Override in `.copilot-project.yml` or by changing `model:` in the agent file.
 
 ---
 

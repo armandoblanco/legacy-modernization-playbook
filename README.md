@@ -47,7 +47,7 @@ Para añadir una tecnología nueva, ver [`docs/technologies/README.md`](docs/tec
 ### Paso 1 — Clonar
 
 ```bash
-git clone https://github.com/<org>/modernizacion-legacy-copilot.git mi-proyecto
+git clone https://github.com/armandoblanco/legacy-modernization-playbook.git mi-proyecto
 cd mi-proyecto
 rm -rf .git && git init
 ```
@@ -97,20 +97,38 @@ cp -r /ruta/al/codigo-legacy/* legacy/
 
 ### Paso 5 — Iniciar Fase 1 (Assessment)
 
-Para VB:
+Para **VB6 / VB.NET**:
 
 ```text
 @vb-assessment Analiza el sistema en legacy/
 ```
 
-Para otras tecnologías, los agentes son aún placeholders — usa los templates en [`.github/agents/_templates/`](.github/agents/_templates/) para crearlos.
+Para **.NET Framework 2.0–4.8**:
+
+```text
+@dotnet-assessment Analiza el sistema en legacy/
+```
+
+Para otras tecnologías, usa los templates en [`.github/agents/_templates/`](.github/agents/_templates/) para crear los agentes.
 
 ### Paso 6 — Continuar con Planning, Execution y Cloud
 
+**VB:**
 ```text
 @vb-planning            (Fase 2)
 @vb-migration           (Fase 3)
-@cloud-architect        (Fase 4)
+```
+
+**.NET Framework:**
+```text
+@dotnet-planning        (Fase 2)
+@dotnet-migration       (Fase 3)
+```
+
+**Cloud (cualquier tecnología):**
+```text
+@cloud-architect        (Fase 4 multi-cloud)
+@azure-architect        (Fase 4 Azure — Mermaid + precios validados)
 ```
 
 ---
@@ -118,7 +136,7 @@ Para otras tecnologías, los agentes son aún placeholders — usa los templates
 ## Estructura del repo
 
 ```
-modernizacion-legacy-copilot/
+legacy-modernization-playbook/
 ├── README.md / README.en.md
 ├── bootstrap.sh / bootstrap.ps1
 ├── docs/
@@ -130,8 +148,8 @@ modernizacion-legacy-copilot/
 │   ├── shared/                         Lecciones, anti-patrones (transversal)
 │   └── technologies/
 │       ├── README.md
-│       ├── vb/                         Cobertura completa
-│       ├── dotnet-framework/           Placeholder
+│       ├── vb/                         ✅ Cobertura completa
+│       ├── dotnet-framework/           ✅ Cobertura completa
 │       ├── cobol/                      Placeholder
 │       ├── java/                       Placeholder
 │       └── python/                     Placeholder
@@ -141,25 +159,30 @@ modernizacion-legacy-copilot/
 ├── scripts/                             md2html.{sh,py} (HTML autocontenido offline)
 ├── cloud-architectures/                Fase 4
 │   ├── README.md
-│   ├── azure/                          5 patrones documentados
+│   ├── azure/                          5 patrones documentados + @azure-architect
 │   ├── aws/                            Placeholder
 │   ├── gcp/                            Placeholder
 │   ├── on-premise/                     Placeholder
 │   └── _templates/                     Plantilla de ADR cloud
 ├── .github/
 │   ├── agents/
-│   │   ├── shared/                     @business-case-analyst, @cloud-architect
+│   │   ├── shared/                     @business-case-analyst, @security-assessor, @cloud-architect, @azure-architect
 │   │   ├── vb/                         3 agentes VB (Fases 1-3)
+│   │   ├── dotnet-framework/           3 agentes .NET Framework (Fases 1-3)
 │   │   └── _templates/                 Plantillas para nuevas tecnologías
 │   ├── instructions/
 │   │   ├── vb-target/                  csharp / winforms / wpf-mvvm / blazor
+│   │   ├── dotnet-target/              csharp-modern (.NET 8/9)
+│   │   ├── shared/                     testing-strategy (pirámide, Testcontainers, paridad)
 │   │   └── _templates/
 │   └── prompts/
-│       ├── shared/                     business-case, arquitectura cloud
-│       └── vb/                         analizar-feature, generar-adr, etc.
+│       ├── shared/                     business-case, arquitectura cloud, validar-precios-azure
+│       ├── vb/                         analizar-feature, generar-adr, migrar-modulo, validar-paridad
+│       └── dotnet-framework/           analizar-proyecto, generar-adr, migrar-proyecto, validar-paridad
 ├── workshop/
 │   ├── shared/                         lab-00 (business case), lab-04 (cloud)
-│   └── vb/                             lab-01 (assessment VB)
+│   ├── vb/                             lab-01 (assessment VB)
+│   └── dotnet-framework/               lab-01 (assessment .NET Framework)
 └── legacy/                             (vacío) código del cliente
 ```
 
