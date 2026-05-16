@@ -216,11 +216,11 @@ legacy-modernization-playbook/
 
 | Task type | Recommended model | Why |
 |---|---|---|
-| Assessment, business case (high read volume) | **Claude Sonnet 4.5** | Optimal cost/performance for reading large codebases |
-| Planning, ADRs, architectural decisions | **Claude Opus 4.1** | Deep reasoning |
-| Migration (code refactoring) | **Claude Opus 4.1** | Precision in transformations |
-| Security assessment | **Claude Opus 4.1** | Adversarial analysis |
-| Cloud architecture | **Claude Opus 4.1** | Trade-offs and price validation |
+| Assessment, business case | **Claude Opus 4.6** | Deep reasoning for complex code analysis |
+| Planning, ADRs, architectural decisions | **Claude Opus 4.6** | Structured reasoning and trade-offs |
+| Migration (code refactoring) | **Claude Sonnet 4.6** | Speed + precision for iterative transformations |
+| Security assessment | **Claude Opus 4.6** | Adversarial analysis |
+| Cloud architecture | **Claude Opus 4.6** | Trade-offs and price validation |
 
 Models are declared in each agent's frontmatter. Override in `.copilot-project.yml` or by changing `model:` in the agent file.
 

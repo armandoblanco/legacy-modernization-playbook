@@ -207,12 +207,12 @@ project:
 
 # Modelos sugeridos por tipo de tarea (override por agente con frontmatter "model:")
 models:
-  default: Claude Sonnet 4.5
-  assessment: Claude Sonnet 4.5     # alto volumen de lectura
-  planning: Claude Opus 4.1         # decisiones / ADRs
-  migration: Claude Opus 4.1        # razonamiento sobre código
-  security: Claude Opus 4.1
-  cloud_architecture: Claude Opus 4.1
+  default: Claude Sonnet 4.6
+  assessment: Claude Opus 4.6       # razonamiento profundo en análisis de código
+  planning: Claude Opus 4.6         # decisiones / ADRs
+  migration: Claude Sonnet 4.6      # velocidad + precisión en transformaciones
+  security: Claude Opus 4.6
+  cloud_architecture: Claude Opus 4.6
 
 # Convención de carpetas
 paths:

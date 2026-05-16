@@ -154,12 +154,12 @@ project:
   bootstrapped_at: $timestamp
 
 models:
-  default: Claude Sonnet 4.5
-  assessment: Claude Sonnet 4.5
-  planning: Claude Opus 4.1
-  migration: Claude Opus 4.1
-  security: Claude Opus 4.1
-  cloud_architecture: Claude Opus 4.1
+  default: Claude Sonnet 4.6
+  assessment: Claude Opus 4.6
+  planning: Claude Opus 4.6
+  migration: Claude Sonnet 4.6
+  security: Claude Opus 4.6
+  cloud_architecture: Claude Opus 4.6
 
 paths:
   legacy: legacy/
