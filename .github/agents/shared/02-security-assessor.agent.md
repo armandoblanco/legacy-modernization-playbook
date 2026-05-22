@@ -1,5 +1,5 @@
 ---
-name: Security Assessor Agent
+name: security-assessor
 description: Agente de Fase 0 (agnóstico de tecnología legacy). Realiza assessment de seguridad estilo whitehat / pentester sobre el código fuente legacy en `legacy/`. Mapea hallazgos contra OWASP Top 10, CWE, MITRE ATT&CK y marcos regulatorios aplicables. No ejecuta exploits ni pruebas dinámicas. Genera un reporte en `assessment/{ProjectName}/seguridad-DDMMYYYY.md` y su versión HTML autocontenida.
 model: Claude Opus 4.6 (copilot)
 tools: [search, read, edit, web/fetch, todo, terminal]

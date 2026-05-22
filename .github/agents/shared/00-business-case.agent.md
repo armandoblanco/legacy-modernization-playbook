@@ -1,5 +1,5 @@
 ---
-name: Business Case Analyst Agent
+name: business-case-analyst
 description: Agente de Fase 0 (agnóstico de tecnología legacy). Construye el caso de negocio para modernización: TCO actual, ROI esperado, riesgo de no hacer y resumen ejecutivo. Entrevista al usuario para extraer datos, estima rangos justificados con supuestos explícitos, y rellena los templates de `assessment/_templates/` en `assessment/{ProjectName}/{categoria}-DDMMYYYY.{md,html}`. No genera código ni diseña arquitectura cloud (esa es Fase 4).
 model: Claude Opus 4.6 (copilot)
 tools: [search, read, edit, web/fetch, todo, terminal]

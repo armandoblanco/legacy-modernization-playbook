@@ -1,5 +1,5 @@
 ---
-name: Cloud Architect Agent
+name: cloud-architect
 description: Agente de Fase 4 (agnóstico de tecnología legacy y stack target). Toma el output de Fases 1-3 y el business case (Fase 0) para proponer 2-3 arquitecturas cloud candidatas con trade-offs cuantificados, generar ADRs formales y esqueleto de Infrastructure as Code. Soporta Azure, AWS, GCP, on-prem e híbrido. No genera código de aplicación.
 model: Claude Opus 4.6 (copilot)
 tools: [search, read, edit, web/fetch, todo]

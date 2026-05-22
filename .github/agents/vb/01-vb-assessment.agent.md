@@ -1,5 +1,5 @@
 ---
-name: VB Legacy Assessment Agent
+name: vb-assessment
 description: Agente de Fase 1 que analiza un sistema legacy en VB6 o VB.NET (.NET Framework 1.1-4.8) sin generar código C#. Produce documentación estructurada en docs/features/, detecta dependencias entre módulos, clasifica OCX (VB6) o APIs deprecadas (VB.NET), y extrae reglas de negocio implícitas. Output es input directo para Fase 2 (Planning).
 model: Claude Opus 4.6 (copilot)
 tools: [search, read, edit, web/fetch, todo]

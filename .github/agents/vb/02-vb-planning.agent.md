@@ -1,5 +1,5 @@
 ---
-name: VB Legacy Planning Agent
+name: vb-planning
 description: Agente de Fase 2 que toma el output del assessment (docs/features/) y produce decisiones arquitectónicas formales para migrar VB6 o VB.NET legacy a .NET 8. Genera ARQUITECTURA-TARGET.md, ADRs por cada decisión relevante, plan de reemplazo de OCX bloqueados (VB6) o APIs deprecadas (VB.NET), y orden de migración. Sin esta fase completa, no se debe iniciar Fase 3.
 model: Claude Opus 4.6 (copilot)
 tools: [search, read, edit, web/fetch, todo]
