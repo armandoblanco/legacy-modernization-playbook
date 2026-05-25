@@ -6,10 +6,10 @@
 
 | Origen | Target |
 | --- | --- |
-| J2EE 1.4 / Java EE 5–7 (EJB 2.x/3.x, JSP, Struts, JSF) | Spring Boot 3 + Java 21 / Quarkus / Micronaut |
+| J2EE 1.4 / Java EE 5-7 (EJB 2.x/3.x, JSP, Struts, JSF) | Spring Boot 3 + Java 21 / Quarkus / Micronaut |
 | Java 6 / 7 / 8 con frameworks legacy | Java 21 LTS |
 | Spring 3 / 4 con XML config | Spring Boot 3 (Java config + Spring Framework 6) |
-| Aplicaciones en WebLogic / WebSphere / JBoss EAP 5–7 | Tomcat embebido / Quarkus / contenedores |
+| Aplicaciones en WebLogic / WebSphere / JBoss EAP 5-7 | Tomcat embebido / Quarkus / contenedores |
 
 ## Particularidades a documentar
 
@@ -42,4 +42,4 @@
 
 ## Notas
 
-Hoy hay tooling muy maduro asistido por IA + recetas (OpenRewrite). El valor del agente Copilot está en assessment, planning, y validación de paridad — no tanto en la conversión sintáctica que ya hacen las recetas.
+Hoy hay tooling muy maduro asistido por IA + recetas (OpenRewrite). El valor del agente Copilot está en assessment, planning, y validación de paridad: no tanto en la conversión sintáctica que ya hacen las recetas.

@@ -3,7 +3,7 @@ applyTo: "src/**/entity/**/*.java,src/**/domain/**/*.java,src/**/persistence/**/
 description: Convenciones para entidades JPA, repositories, y queries usando Hibernate 6. Aplica tanto en Spring Boot como en Quarkus.
 ---
 
-# JPA / Hibernate 6 — Convenciones
+# JPA / Hibernate 6: Convenciones
 
 Convenciones para código de persistencia. Aplica a entities, repositories, queries, mappings.
 

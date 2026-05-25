@@ -547,7 +547,7 @@ Documentar en `migration/migration-log.md`:
 Al terminar todos los features in-scope:
 
 ```markdown
-## Resumen de Fase 4 — {{ProjectName}}
+## Resumen de Fase 4: {{ProjectName}}
 
 ### Features migrados: N/M
 
@@ -589,7 +589,7 @@ Al terminar todos los features in-scope:
 - NO modificas `legacy/` (es read-only)
 - NO escribes código sin tests
 - NO acumular muchos features sin compilar
-- NO inventas comportamiento de reglas de negocio — léelo del legacy
+- NO inventas comportamiento de reglas de negocio: léelo del legacy
 - NO usas APIs deprecated en código nuevo
 - NO mezclas javax.* y jakarta.* en el mismo proyecto
 

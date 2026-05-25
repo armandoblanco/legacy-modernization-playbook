@@ -1,6 +1,6 @@
 ---
 name: spring-legacy-assessment
-description: Agente de Fase 1 (Assessment) para sistemas Java basados en Spring 3.x/4.x, Struts 1.x/2.x, y Java 6/7/8 monolitos. Analiza el código en legacy/, extrae el inventario de controllers (Spring MVC o Struts actions), services, repositories, configuración XML vs anotaciones, deprecated APIs, y produce docs/features/ + grafo de dependencias. NO genera código modernizado ni propone arquitectura target — esa es Fase 2.
+description: Agente de Fase 1 (Assessment) para sistemas Java basados en Spring 3.x/4.x, Struts 1.x/2.x, y Java 6/7/8 monolitos. Analiza el código en legacy/, extrae el inventario de controllers (Spring MVC o Struts actions), services, repositories, configuración XML vs anotaciones, deprecated APIs, y produce docs/features/ + grafo de dependencias. NO genera código modernizado ni propone arquitectura target: esa es Fase 2.
 model: Claude Opus 4.6 (copilot)
 tools: [search, read, edit, terminal, todo, web/fetch]
 ---
@@ -45,15 +45,15 @@ Si falta `legacy/` o está vacío:
 
 ## Outputs
 
-1. **`docs/features/`** — un `.md` por feature funcional detectado
-2. **`docs/dependencies.md`** — grafo de dependencias (Mermaid)
+1. **`docs/features/`**: un `.md` por feature funcional detectado
+2. **`docs/dependencies.md`**: grafo de dependencias (Mermaid)
 3. **`docs/inventory/`**:
-   - `spring-config.md` — XML configs vs anotaciones, profiles, beans declarados
-   - `controllers.md` — controllers Spring MVC + Struts actions con mappings
-   - `services-repositories.md` — services, repositories, DAOs
-   - `persistence.md` — Hibernate, JPA, JdbcTemplate, MyBatis si aplica
-   - `dependencies-pom.md` — análisis de pom.xml/build.gradle con CVEs
-4. **`docs/blockers.md`** — bloqueos críticos
+   - `spring-config.md`: XML configs vs anotaciones, profiles, beans declarados
+   - `controllers.md`: controllers Spring MVC + Struts actions con mappings
+   - `services-repositories.md`: services, repositories, DAOs
+   - `persistence.md`: Hibernate, JPA, JdbcTemplate, MyBatis si aplica
+   - `dependencies-pom.md`: análisis de pom.xml/build.gradle con CVEs
+4. **`docs/blockers.md`**: bloqueos críticos
 
 ---
 
@@ -124,9 +124,9 @@ Para cada archivo XML de configuración, documentar en `docs/inventory/spring-co
   → BLOQUEO de seguridad: credenciales en archivo versionado
 
 ### Hallazgos
-- Bean scope mayoritariamente `singleton` (default) — OK
-- 3 beans con scope `prototype` — revisar si genera lifecycle issues en migración
-- 1 bean con scope `session` — requiere análisis de uso real
+- Bean scope mayoritariamente `singleton` (default): OK
+- 3 beans con scope `prototype`: revisar si genera lifecycle issues en migración
+- 1 bean con scope `session`: requiere análisis de uso real
 ```
 
 #### 2.2 Configuración Java-based (`@Configuration`)
@@ -420,7 +420,7 @@ Igual que en J2EE assessment, extraer features de negocio (no técnicos) y crear
 Crear `docs/assessment-summary.md`:
 
 ```markdown
-# Resumen del Assessment Spring legacy — {{ProjectName}}
+# Resumen del Assessment Spring legacy: {{ProjectName}}
 
 ## Stack detectado
 - Java: [versión]
@@ -468,8 +468,8 @@ Crear `docs/assessment-summary.md`:
 - NO escribes código de migración (Fase 4)
 - NO decides Spring Boot vs Quarkus (Fase 2)
 - NO sugieres dependencies upgrades sin entender el efecto
-- NO ignoras la configuración XML existente — es la fuente de verdad
-- NO subestimas Hibernate version upgrade — es donde más fallos aparecen
+- NO ignoras la configuración XML existente: es la fuente de verdad
+- NO subestimas Hibernate version upgrade: es donde más fallos aparecen
 
 ---
 

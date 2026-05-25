@@ -8,7 +8,7 @@ Catálogo de problemas reales al migrar sistemas Spring 3.x/4.x sobre Java 6/7/8
 
 **Magnitud:** en sistemas típicos, **cientos a miles** de archivos afectados.
 
-**Trampa:** intentar migrar manualmente es lento y error-prone. Pero OpenRewrite tampoco cubre 100% — código generado, strings hardcoded (`Class.forName("javax.persistence.X")`), custom adapters quedan fuera.
+**Trampa:** intentar migrar manualmente es lento y error-prone. Pero OpenRewrite tampoco cubre 100%: código generado, strings hardcoded (`Class.forName("javax.persistence.X")`), custom adapters quedan fuera.
 
 **Solución:**
 1. OpenRewrite recipe `org.openrewrite.java.migrate.jakarta.JavaxMigrationToJakarta` como primer paso
@@ -37,9 +37,9 @@ Catálogo de problemas reales al migrar sistemas Spring 3.x/4.x sobre Java 6/7/8
 
 **Problema:** Spring Boot 3 trae Hibernate 6.x. Cambios mayores vs Hibernate 4/5:
 
-- `org.hibernate.Criteria` (legacy Criteria) **removido** — migrar a `jakarta.persistence.criteria.CriteriaBuilder`
-- `Session.createSQLQuery()` API cambió — usar `EntityManager.createNativeQuery()`
-- Custom `UserType` API **completamente reescrita** — cada UserType requiere reescritura
+- `org.hibernate.Criteria` (legacy Criteria) **removido**: migrar a `jakarta.persistence.criteria.CriteriaBuilder`
+- `Session.createSQLQuery()` API cambió: usar `EntityManager.createNativeQuery()`
+- Custom `UserType` API **completamente reescrita**: cada UserType requiere reescritura
 - `@Enumerated` puede serializar distinto en algunos casos
 - `LocalSessionFactoryBean` patterns cambiaron
 - HQL parser más estricto: queries antes válidas ahora son errores
@@ -67,7 +67,7 @@ Catálogo de problemas reales al migrar sistemas Spring 3.x/4.x sobre Java 6/7/8
 
 **Solución:** mantener ORDINAL si el sistema ya lo usa; cambiar a STRING solo con migración de datos planificada.
 
-## 7. Struts 1.x — end of life
+## 7. Struts 1.x: end of life
 
 **Problema:** Struts 1.x es EOL desde 2013. Sin actualizaciones, sin parches de seguridad.
 
@@ -102,7 +102,7 @@ Catálogo de problemas reales al migrar sistemas Spring 3.x/4.x sobre Java 6/7/8
 
 **Solución:** upgrade a Commons Collections 4.x (paquete cambió a `org.apache.commons.collections4`) y refactor de imports. O eliminar dependencia si Java 8+ collections nativas cubren el uso.
 
-## 11. Log4j 1.x — EOL + CVEs
+## 11. Log4j 1.x: EOL + CVEs
 
 **Problema:** Log4j 1.x está EOL desde 2015 y tiene CVEs históricas. Log4j 2.x tiene CVE-2021-44228 (Log4Shell) que requiere mínimo 2.17.x.
 
@@ -116,10 +116,10 @@ Catálogo de problemas reales al migrar sistemas Spring 3.x/4.x sobre Java 6/7/8
 
 **Trampa:**
 - `sun.misc.*` removido
-- `javax.xml.bind.*` (JAXB) removido en Java 11 — necesita dependencia explícita en Jakarta
-- `javax.activation` removido — idem
+- `javax.xml.bind.*` (JAXB) removido en Java 11: necesita dependencia explícita en Jakarta
+- `javax.activation` removido: idem
 - Module system (JPMS) puede causar `IllegalAccessError` en código con reflection profunda
-- TLS defaults cambiaron — sistemas legacy pueden no negociar con servidores nuevos o viejos
+- TLS defaults cambiaron: sistemas legacy pueden no negociar con servidores nuevos o viejos
 - `String.intern()` con comportamiento ajustado
 
 **Solución:**

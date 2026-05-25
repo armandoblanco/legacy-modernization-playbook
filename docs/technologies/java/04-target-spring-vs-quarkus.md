@@ -24,7 +24,7 @@ Criterios para decidir entre los dos targets soportados por el playbook. Esta de
 
 ## Cuándo elegir Spring Boot 3
 
-- **El equipo del cliente tiene experiencia Spring previa** (incluso Spring 3/4 cuenta — los conceptos transfieren)
+- **El equipo del cliente tiene experiencia Spring previa** (incluso Spring 3/4 cuenta: los conceptos transfieren)
 - **Migración desde Spring legacy**: continuidad natural
 - **Deploy en VMs / contenedores tradicionales** sin presión de cold start
 - **Necesidad de librerías de integración exóticas** (Spring Integration tiene 100+ adapters)
@@ -90,7 +90,7 @@ El agente de migración (`@j2ee-migration`, `@spring-legacy-migration`, `@oracle
 
 Ambos casos cargan también `jpa-hibernate.instructions.md` para el código de persistencia.
 
-NO hay `if Spring/else Quarkus` en cada sección de cada agente — la decisión está cristalizada.
+NO hay `if Spring/else Quarkus` en cada sección de cada agente: la decisión está cristalizada.
 
 ## Migración cruzada Spring Boot ↔ Quarkus
 

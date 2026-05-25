@@ -42,7 +42,7 @@ Valida que el módulo `${input:moduleName}` migrado en `src/` mantiene paridad f
 Genera reporte en `migration/parity-report-${input:moduleName}.md`:
 
 ```markdown
-# Reporte de paridad — ${input:moduleName}
+# Reporte de paridad: ${input:moduleName}
 
 ## Escenarios validados: N/M
 
@@ -66,6 +66,6 @@ Genera reporte en `migration/parity-report-${input:moduleName}.md`:
 [Casos no cubiertos, razón]
 ```
 
-Si encuentras discrepancias críticas, NO las "arregles" en el nuevo código sin antes consultar — pueden ser comportamiento intencional o requerir actualización del ADR.
+Si encuentras discrepancias críticas, NO las "arregles" en el nuevo código sin antes consultar: pueden ser comportamiento intencional o requerir actualización del ADR.
 
 Invocar después: `@migration-tester` para tests de regresión continuos.

@@ -61,7 +61,7 @@ Antes de diseñar el target, decisiones a tomar contigo:
 
 ---
 
-### Paso 2: Bloque A — Stack target
+### Paso 2: Bloque A: Stack target
 
 #### Pregunta 1: Spring Boot 3 vs Quarkus
 
@@ -92,7 +92,7 @@ Antes de diseñar el target, decisiones a tomar contigo:
 
 ---
 
-### Paso 3: Bloque B — Jakarta namespace migration
+### Paso 3: Bloque B: Jakarta namespace migration
 
 #### Pregunta 3: Strategy del `javax.*` → `jakarta.*`
 
@@ -120,14 +120,14 @@ Antes de diseñar el target, decisiones a tomar contigo:
 
 ---
 
-### Paso 4: Bloque C — Hibernate / persistence
+### Paso 4: Bloque C: Hibernate / persistence
 
 #### Pregunta 5: Hibernate version target
 
 > El sistema usa Hibernate [3.x / 4.x / 5.x]. Spring Boot 3 trae Hibernate 6.x. Cambios mayores:
 >
-> - `org.hibernate.Criteria` (legacy Criteria) removido — migrar a JPA CriteriaBuilder
-> - `Session.createSQLQuery()` API cambió — migrar a `EntityManager.createNativeQuery()`
+> - `org.hibernate.Criteria` (legacy Criteria) removido: migrar a JPA CriteriaBuilder
+> - `Session.createSQLQuery()` API cambió: migrar a `EntityManager.createNativeQuery()`
 > - Custom `UserType` API completamente reescrita
 > - `LocalSessionFactoryBean` patrones cambian
 > - HQL: algunos casos antes válidos ahora son errores estrictos
@@ -154,7 +154,7 @@ Antes de diseñar el target, decisiones a tomar contigo:
 
 ---
 
-### Paso 5: Bloque D — Struts (si aplica)
+### Paso 5: Bloque D: Struts (si aplica)
 
 Solo si el assessment detectó Struts.
 
@@ -176,13 +176,13 @@ Solo si el assessment detectó Struts.
 
 ---
 
-### Paso 6: Bloque E — Frontend, security, infra
+### Paso 6: Bloque E: Frontend, security, infra
 
-(Mismas preguntas que en j2ee-planning Pasos 6, 7 — frontend strategy, API style, security, server, config management. No repito aquí para brevedad pero el agente DEBE hacerlas.)
+(Mismas preguntas que en j2ee-planning Pasos 6, 7: frontend strategy, API style, security, server, config management. No repito aquí para brevedad pero el agente DEBE hacerlas.)
 
 ---
 
-### Paso 7: Bloque F — Cutover
+### Paso 7: Bloque F: Cutover
 
 #### Pregunta 12: In-place upgrade puede permitir blue-green más simple
 
@@ -232,10 +232,10 @@ Solo si el assessment detectó Struts.
 
 **Específico de Spring legacy:**
 
-- Recomienda **upgrade in-place** por default si los tests existen y la deuda no es alta — es la diferencia clave vs J2EE
+- Recomienda **upgrade in-place** por default si los tests existen y la deuda no es alta: es la diferencia clave vs J2EE
 - Insiste en ejecutar **OpenRewrite recipe oficial** para namespace change como primer paso (es battle-tested)
 - Si hay Struts 1.x, marca explícitamente que es no negociable: debe salir
-- Hibernate 6 upgrade tiene su propio scope — no lo subestimes en el plan
+- Hibernate 6 upgrade tiene su propio scope: no lo subestimes en el plan
 
 ---
 

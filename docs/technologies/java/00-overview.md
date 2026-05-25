@@ -1,4 +1,4 @@
-# Modernización Java — Overview
+# Modernización Java: Overview
 
 El playbook cubre **tres sub-stacks Java legacy** con agentes específicos:
 
@@ -59,19 +59,19 @@ Si hay mezcla (ej. un sistema J2EE con un módulo Oracle Forms): tratar cada mó
 
 ## Documentos de referencia
 
-- `01-trampas-j2ee.md` — trampas técnicas en migración J2EE → Spring Boot
-- `02-trampas-spring-legacy.md` — trampas en upgrade Spring 3/4 → Spring Boot 3
-- `03-trampas-oracle-forms.md` — trampas específicas de Forms (PL/SQL, NULL semantics, DML automático)
-- `04-target-spring-vs-quarkus.md` — criterios de decisión entre Spring Boot 3 y Quarkus
+- `01-trampas-j2ee.md`: trampas técnicas en migración J2EE → Spring Boot
+- `02-trampas-spring-legacy.md`: trampas en upgrade Spring 3/4 → Spring Boot 3
+- `03-trampas-oracle-forms.md`: trampas específicas de Forms (PL/SQL, NULL semantics, DML automático)
+- `04-target-spring-vs-quarkus.md`: criterios de decisión entre Spring Boot 3 y Quarkus
 
 ## Bootstrap
 
 Cuando el usuario corre el bootstrap.sh / bootstrap.ps1 y elige Java como `LEGACY_TECH`, se le pregunta el sub-stack:
 
 ```
-1) j2ee           — EJB, JSP, WebLogic/WebSphere
-2) spring-legacy  — Spring 3.x/4.x, Struts
-3) oracle-forms   — Oracle Forms (.fmb)
+1) j2ee          : EJB, JSP, WebLogic/WebSphere
+2) spring-legacy : Spring 3.x/4.x, Struts
+3) oracle-forms  : Oracle Forms (.fmb)
 ```
 
 Solo los 3 agentes del sub-stack elegido se copian al directorio plano `.github/agents/` (junto con los shared). Esto mantiene el dropdown de Copilot manejable.

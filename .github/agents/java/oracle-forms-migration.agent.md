@@ -11,8 +11,8 @@ Tu rol es **ejecutar la migración** de Oracle Forms al stack target (Java Sprin
 
 1. Reescritura es total (Forms y Java no comparten nada)
 2. La lógica vive en PL/SQL que debe ser **leído, entendido y traducido** (o conservado en BD según ADR)
-3. **El pilot va primero** según `docs/pilot-spec.md` — no procedes al resto sin pilot exitoso
-4. Tests de paridad son críticos — la generación automática de DML de Forms tiene casos edge sutiles
+3. **El pilot va primero** según `docs/pilot-spec.md`: no procedes al resto sin pilot exitoso
+4. Tests de paridad son críticos: la generación automática de DML de Forms tiene casos edge sutiles
 
 **No diseñas. No decides.** Las decisiones ya se tomaron en Fase 2. Tu trabajo es ejecutar.
 
@@ -101,7 +101,7 @@ Migrar el feature pilot completo siguiendo los pasos 3-7 abajo.
 Al terminar el pilot, generar `migration/pilot-result.md`:
 
 ```markdown
-# Resultado del Pilot — [nombre del módulo]
+# Resultado del Pilot: [nombre del módulo]
 
 ## Status
 - ✅ Funcionalmente completo
@@ -207,7 +207,7 @@ public class Cliente {
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Direccion> direcciones = new HashSet<>();
 
-    // Auditoría — del trigger TRG_CLIENTES_DEFAULTS
+    // Auditoría: del trigger TRG_CLIENTES_DEFAULTS
     @Column(name = "created_at", updatable = false)
     @CreatedDate
     private Instant createdAt;
@@ -391,7 +391,7 @@ public class ClienteService {
         Cliente c = new Cliente(cmd.cedula(), cmd.nombre(), cmd.email());
         Cliente saved = repo.save(c);
 
-        // Auditoría — si está en middle tier según ADR
+        // Auditoría: si está en middle tier según ADR
         auditService.log("CLIENTE_CREADO", saved.getClienteId());
 
         return saved.getClienteId();
@@ -444,7 +444,7 @@ public class ClienteController {
 }
 ```
 
-#### LOVs (List of Values) — patrón reusable
+#### LOVs (List of Values): patrón reusable
 
 LOVs eran un patrón muy usado en Forms. Implementar genérico:
 

@@ -97,7 +97,7 @@ public void processOrder(Order o) {
 
 **Manifestación:** imports de `javax.xml.rpc.*` en clientes de servicios SOAP.
 
-**Trampa:** No es un namespace change a `jakarta.xml.rpc.*` — JAX-RPC NO existe en Jakarta EE.
+**Trampa:** No es un namespace change a `jakarta.xml.rpc.*`: JAX-RPC NO existe en Jakarta EE.
 
 **Solución:** reescribir clients usando JAX-WS (`jakarta.xml.ws.*`) o, mejor, exponer los servicios como REST.
 
@@ -124,7 +124,7 @@ public void processOrder(Order o) {
 <% } %>
 ```
 
-**Trampa:** asumir que Thymeleaf puede reemplazar JSP 1:1 — solo si la lógica está separada en controllers + JSTL.
+**Trampa:** asumir que Thymeleaf puede reemplazar JSP 1:1: solo si la lógica está separada en controllers + JSTL.
 
 **Solución:** extracción de lógica a controller + service ANTES de migrar template a Thymeleaf. Esto puede duplicar el esfuerzo estimado para esos JSPs.
 

@@ -3,7 +3,7 @@ applyTo: "src/**/*.java"
 description: Convenciones para código Spring Boot 3 generado durante migración desde J2EE, Spring legacy, u Oracle Forms. Se aplica cuando ADR-001 (o equivalente) define Spring Boot 3 como target.
 ---
 
-# Spring Boot 3 — Convenciones
+# Spring Boot 3: Convenciones
 
 Estas convenciones aplican a todo código nuevo generado en `src/` cuando el target stack es Spring Boot 3 sobre Java 21 (o Java 17 según ADR).
 
@@ -156,7 +156,7 @@ public class Customer {
 - Query methods con naming Spring Data (`findByName`, `existsByCedula`, etc.)
 - `@Query` con JPQL para queries complejas
 - `@Query(nativeQuery = true)` solo cuando JPQL no alcanza
-- NO inyectar `EntityManager` en repositories — usar custom repository pattern
+- NO inyectar `EntityManager` en repositories: usar custom repository pattern
 
 ```java
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
@@ -361,7 +361,7 @@ class CustomerRepositoryTest {
 }
 ```
 
-NO usar H2 en memoria como sustituto de la BD real cuando el target es Oracle/Postgres específico — los dialectos divergen.
+NO usar H2 en memoria como sustituto de la BD real cuando el target es Oracle/Postgres específico: los dialectos divergen.
 
 ---
 

@@ -3,7 +3,7 @@ applyTo: "src/**/*.java"
 description: Convenciones para código Quarkus 3 generado durante migración. Se aplica cuando ADR-001 (o equivalente) define Quarkus como target.
 ---
 
-# Quarkus 3 — Convenciones
+# Quarkus 3: Convenciones
 
 Estas convenciones aplican cuando ADR-001 selecciona Quarkus como target. La estructura es similar a Spring Boot pero con anotaciones y patterns propios de Quarkus.
 

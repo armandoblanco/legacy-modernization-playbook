@@ -1,180 +1,254 @@
-# Legacy System Modernization with GitHub Copilot
+# Legacy Modernization Playbook
 
-**Multi-technology template** for modernizing legacy applications with GitHub Copilot assistance. Covers the full cycle: business case, assessment, planning, scope refinement, modernization strategy, execution, testing, and cloud architecture. Built from real-world migrations in banking, government, and telco in LATAM.
+**Modernizing legacy systems with GitHub Copilot.** Multi-technology template with Copilot agents covering the full cycle: assessment, planning, migration execution, and target cloud architecture on Azure.
 
-> Today with complete coverage for **Visual Basic 6 / VB.NET** and **.NET Framework 2.0–4.8**. Placeholders for **COBOL, Java legacy, and Python**, extensible to other technologies without breaking the methodology.
+Built from real migrations in banking, government, and telco in LATAM.
+
+> Currently with complete coverage for **Visual Basic 6 / VB.NET**, **.NET Framework 2.0-4.8**, and **Java legacy (J2EE, Spring 3/4, Oracle Forms)**. Designed to extend to COBOL, Python, and other technologies without breaking the methodology.
 >
-> **Spanish version (primary):** [README.md](README.md)
+> **Versión en español:** [README.md](README.md)
 
 ---
 
-## Complete modernization flow (7 phases)
+## Real case
 
+Migration of a VB6 HR management system (attendance control, payroll history, vacations, paperwork) to WPF + .NET 8 following the playbook:
+
+| Metric | Result |
+| --- | --- |
+| Features migrated | 15 / 15 |
+| Tests | **146 / 146 passed** (78 Domain + 24 Application + 44 Parity) |
+| Final build | **0 errors, 0 warnings** across the entire solution |
+| Documented ADRs | 9 (target stack, OCX replacement, ORM, MVVM, etc.) |
+| Integrations deferred with ADR | SigPlusNET, WebView2, QuestPDF |
+| Architecture layers | Clean Architecture (Domain + Application + Infrastructure + WPF) |
+
+The client can audit every decision, every migrated feature, and every test executed.
+
+---
+
+## Five-phase methodology
+
+```mermaid
+flowchart LR
+    F0["<b>Phase 0</b><br/>Business Case<br/><i>is it worth it?</i>"]:::opt
+    F1["<b>Phase 1</b><br/>Assessment<br/><i>what's there?</i>"]:::req
+    F2["<b>Phase 2</b><br/>Planning<br/><i>where to?</i>"]:::req
+    F3["<b>Phase 3</b><br/>Migration<br/><i>build it</i>"]:::req
+    F4["<b>Phase 4</b><br/>Cloud Deploy<br/><i>where does it run?</i>"]:::opt
+
+    F0 --> F1 --> F2 --> F3 --> F4
+
+    classDef req fill:#1e6091,stroke:#073b4c,color:#fff
+    classDef opt fill:#6c757d,stroke:#495057,color:#fff
 ```
-[Phase 0]         [Phase 1]         [Phase 2]         [Phase 2.5]       [Phase 3]         [Phase 4]         [Phase 5]         [Phase 6]
-Business      →   Technical     →   Architecture  →   Plan          →   Modernization →   Execution     →   Testing &     →   Cloud
-Case              Assessment        Planning          Refinement        Strategy          (build)           QA                Deployment
-                                                      (scope)           (6R + path)                         (parity)
-```
 
-| Phase | Agent | Main deliverable |
-| --- | --- | --- |
-| **0. Business Case** | `business-case-analyst`, `security-assessor` | `assessment/{Project}/` (TCO, ROI, risk, security) |
-| **1. Technical Assessment** | `vb-assessment` or `dotnet-assessment` | `docs/features/` (rules, dependencies, blockers) |
-| **2. Planning** | `vb-planning` or `dotnet-planning` | `docs/ARQUITECTURA-TARGET.md` + ADRs |
-| **2.5. Plan Refinement** | `plan-refiner` | `docs/MIGRATION-SCOPE.md` (scope agreed with client) |
-| **3. Modernization Strategy** | `modernization-strategy` | `docs/MODERNIZATION-PATH.md` (6R + path) |
-| **4. Execution** | `vb-migration` or `dotnet-migration` | Code in `src/` with functional parity |
-| **5. Testing & QA** | `migration-tester` | `testing/parity-report.md`, coverage, gaps |
-| **6. Cloud Deployment** | `cloud-architect` or `azure-architect` | `cloud-architectures/<provider>/` + IaC |
+**Phases 1, 2, and 3 are required** (assessment → planning → migration). Phase 0 and Phase 4 are optional but recommended for real client projects.
 
-Methodology details in [`docs/methodology/00-overview.md`](docs/methodology/00-overview.md).
+| Phase | Question | Agent | Deliverable |
+| --- | --- | --- | --- |
+| 0. Business Case _(optional)_ | Is it worth it? | `@business-case-analyst` | TCO, ROI, risk, executive summary |
+| 0. Security _(optional)_ | What are the risks? | `@security-assessor` | Whitehat / pentest report of the legacy |
+| **1. Assessment** | What does the legacy contain? | `@<tech>-assessment` | `docs/features/` + `docs/dependency-graph.md` |
+| **2. Planning** | What stack and why? | `@<tech>-planning` | `docs/ARQUITECTURA-TARGET.md` + `docs/adr/` |
+| **3. Migration** | How to build it? | `@<tech>-migration` | `src/` with parity + tests + `migration-log.md` |
+| 4. Cloud Deploy _(optional)_ | Where does it run? | `@azure-architect` | `cloud-architectures/azure/` with IaC + pricing |
+
+Full methodology in [`docs/methodology/00-overview.md`](docs/methodology/00-overview.md).
 
 ---
 
-## Supported legacy technologies
+## End-to-end example: migrating a VB6 system to WPF + .NET 8
 
-| Technology | Status | Technical agents |
-| --- | --- | --- |
-| Visual Basic 6 / VB.NET legacy | Complete and validated | `vb-assessment` · `vb-planning` · `vb-migration` |
-| .NET Framework 2.0–4.8 | Complete | `dotnet-assessment` · `dotnet-planning` · `dotnet-migration` |
-| COBOL (z/OS, distributed) | Placeholder | Create from `.github/agents/_templates/` |
-| Java legacy (J2EE, Java 6/7/8) | Placeholder | Create from `.github/agents/_templates/` |
-| Python 2 / legacy 3 | Placeholder | Create from `.github/agents/_templates/` |
+This is the real flow that produced the case study above. All agents are invoked from GitHub Copilot Chat in VS Code.
 
-To add a technology, see [`docs/technologies/README.md`](docs/technologies/README.md).
-
----
-
-## How to use the template
-
-### 1. Clone
+### Step 1: Clone and bootstrap
 
 ```bash
 git clone https://github.com/armandoblanco/legacy-modernization-playbook.git my-project
 cd my-project
 rm -rf .git && git init
+
+./bootstrap.sh      # Linux/macOS/WSL
+.\bootstrap.ps1     # Windows
 ```
 
-### 2. Interactive bootstrap
+The bootstrap asks for project name, client, legacy technology, and target stack. It adapts the repo, copies the right agents to `.github/agents/`, and generates `.copilot-project.yml`.
 
-```bash
-./bootstrap.sh       # Linux/macOS/WSL
-.\bootstrap.ps1      # Windows
-```
-
-The bootstrap asks for project, client, legacy technology, target stack, and cloud, then:
-
-- Replaces placeholders (`{{ProjectName}}`, etc.) in all `.md` files.
-- **Copies the chosen technology's agents + shared agents to `.github/agents/` flat** (see technical note below).
-- Generates `.copilot-project.yml` with your configuration.
-- Creates working folders: `legacy/`, `src/`, `assessment/{ProjectName}/`, `testing/`.
-- Generates `NEXT-STEPS.md` with a flow personalized for your tech/stack.
-
-**The bootstrap does NOT self-delete.** You can re-run it to change tech/stack/cloud without losing work. Previous choices are overwritten.
-
-> **Important technical note: agent discovery in `.github/agents/`**
->
-> GitHub Copilot **does not discover agents in subfolders** of `.github/agents/`. It only reads `.agent.md` files directly in `.github/agents/`. Known behavior (open issues in `github/copilot-cli` #2245, #1859, #1506).
->
-> This template keeps agents organized by category in subfolders (`shared/`, `vb/`, `dotnet-framework/`) as **source of truth**. The `bootstrap` copies the ones applying to your project to the flat level. Don't edit the copies in `.github/agents/*.agent.md` directly — edit the sources in subfolders and re-run the bootstrap.
-
-### 3. Load legacy code
+### Step 2: Load the legacy code
 
 ```bash
 mkdir -p legacy/
-cp -r /path/to/legacy-code/* legacy/
+cp -r /path/to/vb6-code/* legacy/
 ```
 
-### 4. Open VS Code
+Code in `legacy/` is read-only. Agents read it but never modify it.
 
-```bash
-code .
+### Step 3: Phase 1: Assessment
+
+In GitHub Copilot Chat:
+
+```text
+@vb-assessment Analyze the system in legacy/
 ```
 
-In Copilot Chat, verify the agents appear. **How to invoke them depends on the environment:**
+The agent reads the code, detects dependencies, classifies OCX/COM, extracts business rules, and produces:
 
-| Environment | How to invoke |
-| --- | --- |
-| VS Code (Copilot Chat) | Click the **agent picker dropdown** and select the agent. `@name` only works for built-in agents like `@workspace`. |
-| Visual Studio 2026 (18.4+) | `@name` directly in the chat input |
-| GitHub Copilot CLI | `/agent <name>` or `--agent` argument |
-| GitHub.com (Copilot cloud agent) | Dropdown in the Agents page |
+```
+docs/
+├── README.md                          Master index of the assessment
+├── SUMMARY.md                         Executive summary for client review
+├── dependency-graph.md                Mermaid graph + topological migration order
+└── features/
+    ├── 01-authentication-and-access.md
+    ├── 02-personal-data.md
+    ├── 03-attendance-history.md
+    ├── 04-incidents-management.md
+    ├── 05-vacations-management.md
+    └── ...                            (one .md per detected functional feature)
+```
 
-If agents don't appear: `Cmd/Ctrl+Shift+P` → "Developer: Reload Window".
+Each feature contains: functional description, technical components (forms, modules, classes), business rules extracted with `file:line` citation, external dependencies, migration blockers, and size estimation.
 
-### 5. Run the flow
+### Step 4: Phase 2: Planning
 
-Follow `NEXT-STEPS.md` generated by the bootstrap, or check `docs/methodology/00-overview.md`.
+```text
+@vb-planning Review the assessment and plan the migration
+```
+
+The agent reads Phase 1 outputs, asks the user critical decisions (target stack, replacement for blocking OCX, ORM strategy, MVVM framework, architecture pattern), and produces:
+
+```
+docs/
+├── ARQUITECTURA-TARGET.md             Target stack + legacy → modern mapping
+├── migration-plan.md                  Migration order with dependencies
+└── adr/
+    ├── ADR-001-target-stack.md                  WPF .NET 8 + CommunityToolkit.Mvvm
+    ├── ADR-002-sigplusnet-replacement.md        InkCanvas + SigPlusNET
+    ├── ADR-003-acropdf-replacement.md           Microsoft WebView2
+    ├── ADR-004-excel-interop-replacement.md     ClosedXML + QuestPDF
+    ├── ADR-005-outlook-interop-replacement.md   MailKit via SMTP
+    ├── ADR-006-patron-arquitectonico.md         Clean Architecture 4 layers
+    ├── ADR-007-orm-bd-strategy.md               EF Core + Dapper hybrid
+    ├── ADR-008-mvvm-framework.md                CommunityToolkit.Mvvm 8
+    └── ADR-009-navegacion-wpf.md                Dynamic TabControl
+```
+
+Each ADR has context, decision, alternatives considered, consequences, and mitigations. It's the contract Phase 3 will respect.
+
+### Step 5: Phase 3: Migration
+
+```text
+@vb-migration Execute the migration of the legacy system
+```
+
+The agent reads `ARQUITECTURA-TARGET.md` + ADRs, follows the topological order of the plan, and generates modern code in `src/` with embedded tests:
+
+```
+src/
+├── MyProject.sln
+├── MyProject.Domain/                  Entities, Value Objects, Domain Services
+├── MyProject.Application/             Use Cases, orchestrating Services
+├── MyProject.Infrastructure/          EF Core + Dapper Repositories, External APIs
+├── MyProject.Wpf/                     Views + ViewModels (MVVM)
+└── MyProject.Tests/
+    ├── DomainTests/
+    ├── ApplicationTests/
+    └── ParityTests/                   Validate functional parity with the legacy
+```
+
+It works feature by feature with compile-and-test between layers, never accumulating changes. Documents each decision in `migration/migration-log.md` and reports "Done" tables verified per feature.
+
+### Step 6: Phase 4 (optional): Cloud architecture on Azure
+
+```text
+@azure-architect Design the cloud architecture for MyProject on Azure
+```
+
+Produces Mermaid diagram, cloud ADRs, and pricing validated via Azure Retail Prices API in `cloud-architectures/azure/`.
 
 ---
 
-## Included agents
+## Other technologies
 
-### Shared (any technology) — `.github/agents/shared/`
+The same flow applies to .NET Framework and Java legacy with their specific agents.
 
-- `business-case-analyst` — Phase 0. TCO, ROI, risk, executive.
-- `security-assessor` — Phase 0. Whitehat security analysis over `legacy/`.
-- `modernization-strategy` — Phase 3. **New.** Gartner's 6 R's + Windows desktop sub-flow (desktop/web, containers, Kubernetes).
-- `plan-refiner` — Phase 2.5. **New.** Refines scope with the user: discarded features, gaps, modified rules.
-- `migration-tester` — Phase 5. **New.** Systematic parity tests + coverage + report.
-- `cloud-architect` — Phase 6. Multi-provider cloud architecture with ADRs.
-- `azure-architect` — Phase 6. Azure-specific: Mermaid + prices validated with Retail Prices API.
+### .NET Framework 2.0-4.8
 
-### Technology-specific
+```text
+@dotnet-assessment Analyze the system in legacy/
+@dotnet-planning Review the assessment and plan the migration
+@dotnet-migration Execute the migration of the legacy system
+```
 
-- **VB** (`.github/agents/vb/`): `vb-assessment` · `vb-planning` · `vb-migration`
-- **.NET Framework** (`.github/agents/dotnet-framework/`): `dotnet-assessment` · `dotnet-planning` · `dotnet-migration`
-- Other technologies: use templates in `.github/agents/_templates/`.
+Full guide: [`docs/QUICKSTART-dotnet.md`](docs/QUICKSTART-dotnet.md)
 
-### Suggested models
+### Java legacy (J2EE, Spring 3/4, Oracle Forms)
 
-| Task type | Model | Why |
+The bootstrap asks for the Java sub-stack. Depending on the choice, the agents are:
+
+| Sub-stack | When it applies | Agents |
 | --- | --- | --- |
-| Assessment, business case, planning, strategy, refinement | Claude Opus 4.6 | Deep reasoning + trade-offs |
-| Migration (code refactor) | Claude Sonnet 4.6 | Speed + iterative precision |
-| Testing | Claude Sonnet 4.6 | Mass test generation |
-| Security assessment, cloud architecture | Claude Opus 4.6 | Adversarial analysis |
+| **J2EE** | EJB 2.x/3.x, JSP, WebLogic/WebSphere | `@j2ee-assessment` · `@j2ee-planning` · `@j2ee-migration` |
+| **Spring legacy** | Spring 3.x/4.x, Struts, Java 6/7/8 | `@spring-legacy-assessment` · `@spring-legacy-planning` · `@spring-legacy-migration` |
+| **Oracle Forms** | Forms 11g/12c, embedded PL/SQL | `@oracle-forms-assessment` · `@oracle-forms-planning` · `@oracle-forms-migration` |
 
-Override in `.copilot-project.yml` or in the agent's frontmatter.
+Spring legacy example:
 
----
-
-## Philosophy
-
-- **7 phases in strict order.** Each phase produces input for the next. Skipping generates predictable rework.
-- **Plan Refinement (2.5) is mandatory.** The plan generated by `vb-planning` / `dotnet-planning` almost always has gaps that only the user working with the client can resolve. Skipping it means migrating dead code.
-- **Modernization Strategy is conscious decision, not default.** Each system requires its 6R recommendation. Not everything gets Refactored. Not everything goes to Kubernetes.
-- **Testing is explicit phase, not appendix of Execution.** Has its agent, coverage targets, and parity report.
-- **Technology-agnostic at core.** The what, when, and why are the same for VB, COBOL, Java, or Python; the tactical how changes.
-- **Every architectural decision is an ADR.** Without ADR, the decision doesn't exist later.
-- **Legacy code is the source of truth.** Documentation and team memory are approximations.
-- **Copilot accelerates, doesn't replace.** The agent proposes; the human decides.
-
----
-
-## What this template is NOT
-
-- **Not a promise of automatic migration.** Systems with proprietary OCX, mainframe dependencies, or hidden logic in DB require human decisions documented in ADR.
-- **Not a syntax converter.** For 1:1 line-by-line conversion there are cheaper, more specific commercial tools.
-- **Doesn't include legacy code samples.** Client code goes in `legacy/`.
-- **Doesn't estimate project duration.** Estimation happens in commercial proposal, outside methodology's scope.
-- **Doesn't sell cloud or Kubernetes.** The `modernization-strategy` agent decides if and where containerization makes sense, based on objective criteria.
-
----
-
-## Local validation before client use
-
-Before using the template with a real client, run the checklist:
-
-```bash
-cat VALIDATION-CHECKLIST.md
+```text
+@spring-legacy-assessment Analyze the system in legacy/
+@spring-legacy-planning Review the assessment and plan the migration to Spring Boot 3
+@spring-legacy-migration Execute the migration of the legacy system
 ```
 
-Covers: functional bootstrap on Linux/Mac/Windows, agents discoverable by Copilot, sanity check of each new agent, execution of an end-to-end cycle with sample code.
+Full guide: [`docs/QUICKSTART-java.md`](docs/QUICKSTART-java.md)
 
 ---
+
+## Supported technologies
+
+| Technology | Status | Quickstart |
+| --- | --- | --- |
+| **Visual Basic** (VB6 + VB.NET legacy) | Complete and validated in production | Example in this README |
+| **.NET Framework 2.0-4.8** | Complete | [`docs/QUICKSTART-dotnet.md`](docs/QUICKSTART-dotnet.md) |
+| **Java legacy** (3 sub-stacks) | Complete | [`docs/QUICKSTART-java.md`](docs/QUICKSTART-java.md) |
+| **COBOL** (z/OS, distributed) | Placeholder | [`docs/technologies/cobol/`](docs/technologies/cobol/) |
+| **Python 2 / 3 old** | Placeholder | [`docs/technologies/python/`](docs/technologies/python/) |
+
+To add a new technology, see [`docs/technologies/README.md`](docs/technologies/README.md).
+
+---
+
+## Available Copilot agents
+
+Full list with descriptions and example prompts: [`docs/AGENTS.md`](docs/AGENTS.md)
+
+**Shared (any technology):**
+- `@business-case-analyst`: Phase 0 (TCO, ROI, risk, executive)
+- `@security-assessor`: Phase 0 (whitehat / pentest of the legacy)
+- `@azure-architect`: Phase 4 (Mermaid + pricing validated via Retail Prices API)
+
+**Technology-specific:** see table above.
+
+---
+
+## Additional documentation
+
+- [`docs/AGENTS.md`](docs/AGENTS.md): Complete agent catalog with example prompts
+- [`docs/PROJECT-STRUCTURE.md`](docs/PROJECT-STRUCTURE.md): Repo structure folder by folder
+- [`docs/PHILOSOPHY.md`](docs/PHILOSOPHY.md): Philosophy, lessons learned, what this template is NOT
+- [`docs/methodology/00-overview.md`](docs/methodology/00-overview.md): Detailed 5-phase methodology
+
+---
+
+## Contributing
+
+If you've modernized a system with this methodology and have new lessons or undocumented pitfalls, open an issue or PR. We're especially looking for:
+
+- Real cases of COBOL and Python 2 to populate placeholders
+- Business case templates validated with client finance teams
+- Technical pitfalls not documented in the per-technology catalogs
 
 ## License
 
-MIT — use freely, attribute if you want.
+MIT: use freely, attribute if you want.

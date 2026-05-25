@@ -15,15 +15,15 @@ Tu rol es **diseñar la arquitectura target** del sistema modernizado y **docume
 
 ## Por qué existes
 
-Después del assessment hay decisiones que no son técnicas puras — son trade-offs:
+Después del assessment hay decisiones que no son técnicas puras. Son trade-offs:
 
-- **Spring Boot 3 vs Quarkus** — mainstream vs cloud-native
-- **Cómo manejar Entity Beans CMP** — reescritura completa o adapter pattern
-- **Strangler Fig vs Big Bang** — gradual vs all-at-once
-- **Mantener XA o eliminar** — robustez vs simplicidad
-- **Stateful Session Beans** — sesión HTTP, BD, o Redis
-- **JMS provider** — mantener WebLogic JMS, migrar a ActiveMQ Artemis, RabbitMQ, Kafka
-- **Servlet container** — embedded Tomcat 10, Jetty, Undertow
+- **Spring Boot 3 vs Quarkus**: mainstream vs cloud-native
+- **Cómo manejar Entity Beans CMP**: reescritura completa o adapter pattern
+- **Strangler Fig vs Big Bang**: gradual vs all-at-once
+- **Mantener XA o eliminar**: robustez vs simplicidad
+- **Stateful Session Beans**: sesión HTTP, BD, o Redis
+- **JMS provider**: mantener WebLogic JMS, migrar a ActiveMQ Artemis, RabbitMQ, Kafka
+- **Servlet container**: embedded Tomcat 10, Jetty, Undertow
 
 Estas decisiones tienen que tomarse explícitamente, con justificación, antes de que cualquiera escriba código. Esto es lo que un ADR (Architecture Decision Record) hace.
 
@@ -46,10 +46,10 @@ Si falta el output del assessment:
 
 ## Outputs
 
-1. **`docs/ARQUITECTURA-TARGET.md`** — documento principal con la arquitectura target completa
-2. **`docs/adr/`** — un ADR por decisión arquitectónica importante (8-15 típicamente)
-3. **`docs/migration-plan.md`** — orden de migración por feature con dependencias
-4. **`docs/risks.md`** — riesgos arquitectónicos identificados con mitigación
+1. **`docs/ARQUITECTURA-TARGET.md`**: documento principal con la arquitectura target completa
+2. **`docs/adr/`**: un ADR por decisión arquitectónica importante (8-15 típicamente)
+3. **`docs/migration-plan.md`**: orden de migración por feature con dependencias
+4. **`docs/risks.md`**: riesgos arquitectónicos identificados con mitigación
 
 ---
 
@@ -74,7 +74,7 @@ juntos varias cosas. Te voy a preguntar en bloques de 3-4 decisiones a la vez.
 
 ---
 
-### Paso 2: Bloque A — Stack target
+### Paso 2: Bloque A: Stack target
 
 #### Pregunta 1: Spring Boot 3 vs Quarkus
 
@@ -116,7 +116,7 @@ Espera respuesta. NO continúes hasta tenerla.
 
 ---
 
-### Paso 3: Bloque B — Manejo de EJBs
+### Paso 3: Bloque B: Manejo de EJBs
 
 #### Pregunta 4: Stateless Session Beans → Services
 
@@ -140,7 +140,7 @@ Espera respuesta. NO continúes hasta tenerla.
 > Detecté **M Entity Beans CMP 2.x**. Esto es la parte más cara. Opciones:
 >
 > 1. **Reescritura a JPA / Hibernate 6**: estándar, mecánico pero requiere remapeo manual
-> 2. **Adapter pattern**: mantener EJBs en un contenedor mínimo (TomEE) y exponerlos a Spring vía adapter — solo si la migración debe ser MUY gradual
+> 2. **Adapter pattern**: mantener EJBs en un contenedor mínimo (TomEE) y exponerlos a Spring vía adapter: solo si la migración debe ser MUY gradual
 > 3. **Cambiar de ORM**: jOOQ, Spring Data JDBC, MyBatis (raramente vale la pena vs JPA)
 >
 > Recomendación por default: opción 1 (JPA / Hibernate 6) salvo razón fuerte.
@@ -156,7 +156,7 @@ Espera respuesta. NO continúes hasta tenerla.
 
 ---
 
-### Paso 4: Bloque C — Transacciones
+### Paso 4: Bloque C: Transacciones
 
 #### Pregunta 8: XA transactions
 
@@ -188,7 +188,7 @@ Espera respuesta. NO continúes hasta tenerla.
 
 ---
 
-### Paso 5: Bloque D — Estrategia de cutover
+### Paso 5: Bloque D: Estrategia de cutover
 
 #### Pregunta 10: Big Bang vs Strangler Fig vs Paralelo
 
@@ -222,7 +222,7 @@ Espera respuesta. NO continúes hasta tenerla.
 
 ---
 
-### Paso 6: Bloque E — Capas técnicas
+### Paso 6: Bloque E: Capas técnicas
 
 #### Pregunta 13: Frontend strategy
 
@@ -251,7 +251,7 @@ Espera respuesta. NO continúes hasta tenerla.
 
 ---
 
-### Paso 7: Bloque F — Infraestructura
+### Paso 7: Bloque F: Infraestructura
 
 #### Pregunta 16: Servidor de aplicaciones
 
@@ -280,7 +280,7 @@ Espera respuesta. NO continúes hasta tenerla.
 Con las respuestas, generar el documento principal:
 
 ```markdown
-# Arquitectura target — {{ProjectName}}
+# Arquitectura target: {{ProjectName}}
 
 **Fecha:** YYYY-MM-DD
 **Refinado a partir de:** docs/assessment-summary.md
@@ -384,9 +384,9 @@ src/
 
 Ver `docs/adr/` para el detalle de cada decisión:
 
-- ADR-001: Stack target — [Spring Boot 3 / Quarkus]
-- ADR-002: Java version — [17 / 21]
-- ADR-003: Build tool — [Maven / Gradle]
+- ADR-001: Stack target: [Spring Boot 3 / Quarkus]
+- ADR-002: Java version: [17 / 21]
+- ADR-003: Build tool: [Maven / Gradle]
 - ADR-004: Manejo de Entity Beans CMP
 - ADR-005: Manejo de Stateful Session Beans
 - ADR-006: Estrategia de transacciones (XA / Saga / Outbox)
@@ -407,7 +407,7 @@ Ver `docs/adr/` para el detalle de cada decisión:
 Para cada decisión importante, crear `docs/adr/NNN-titulo.md`:
 
 ```markdown
-# ADR-001: Stack target — Spring Boot 3
+# ADR-001: Stack target: Spring Boot 3
 
 **Status:** Acordado con [usuario + cliente si aplica]
 **Date:** YYYY-MM-DD
@@ -473,7 +473,7 @@ Esta decisión afecta:
 ### Paso 10: Generar `docs/migration-plan.md`
 
 ```markdown
-# Plan de migración — {{ProjectName}}
+# Plan de migración: {{ProjectName}}
 
 ## Orden topológico de features
 
@@ -483,7 +483,7 @@ Basado en `docs/dependencies.md` (Fase 1) y los bloqueos detectados:
 | --- | --- | --- | --- | --- |
 | 1 | autenticacion | M | Spring Security migration | Sin dependencias, requerido por todos |
 | 2 | gestion-clientes | M | Entity Bean CMP migration | Sin más bloqueos, alta tracción |
-| 3 | catalogo-productos | S | — | Independiente |
+| 3 | catalogo-productos | S |: | Independiente |
 | 4 | gestion-ordenes | L | XA transactions (mitigado con Saga) | Depende de 2 y 3 |
 | 5 | reportes-ventas | XL | JasperReports redesign | Depende de 4 |
 | 6 | auditoria | S | Trigger BD vs application layer | Transversal, último |
@@ -568,7 +568,7 @@ Basado en `docs/dependencies.md` (Fase 1) y los bloqueos detectados:
 - NO inventas restricciones del cliente que no fueron dichas
 - NO ignoras los bloqueos del assessment
 - NO incluyes estimaciones de duración del proyecto (es propuesta comercial)
-- NO recomiendas microservicios por default — para un sistema monolítico migración a monolito moderno es el camino más sano
+- NO recomiendas microservicios por default: para un sistema monolítico migración a monolito moderno es el camino más sano
 
 **Cuando el usuario duda:**
 

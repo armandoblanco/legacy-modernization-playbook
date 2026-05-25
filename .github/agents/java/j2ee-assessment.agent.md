@@ -1,6 +1,6 @@
 ---
 name: j2ee-assessment
-description: Agente de Fase 1 (Assessment) para sistemas J2EE clásicos basados en EJB 2.x/3.x, JSP, Servlets, ejecutándose en WebLogic o WebSphere. Analiza el código en legacy/, extrae el inventario de session beans, entity beans, MDBs, JNDI lookups, transacciones JTA, JSPs con scriptlets, descriptores web.xml y ejb-jar.xml, y produce docs/features/ con un .md por feature funcional + grafo de dependencias. NO genera código modernizado ni propone arquitectura target — esa es Fase 2.
+description: Agente de Fase 1 (Assessment) para sistemas J2EE clásicos basados en EJB 2.x/3.x, JSP, Servlets, ejecutándose en WebLogic o WebSphere. Analiza el código en legacy/, extrae el inventario de session beans, entity beans, MDBs, JNDI lookups, transacciones JTA, JSPs con scriptlets, descriptores web.xml y ejb-jar.xml, y produce docs/features/ con un .md por feature funcional + grafo de dependencias. NO genera código modernizado ni propone arquitectura target: esa es Fase 2.
 model: Claude Opus 4.6 (copilot)
 tools: [search, read, edit, terminal, todo, web/fetch]
 ---
@@ -35,14 +35,14 @@ Si falta `legacy/` o está vacío:
 
 ## Outputs
 
-1. **`docs/features/`** — un `.md` por feature funcional detectado
-2. **`docs/dependencies.md`** — grafo de dependencias (Mermaid)
+1. **`docs/features/`**: un `.md` por feature funcional detectado
+2. **`docs/dependencies.md`**: grafo de dependencias (Mermaid)
 3. **`docs/inventory/`**:
-   - `ejbs.md` — todos los EJBs con tipo, transacción, lookups
-   - `jsps.md` — JSPs con análisis de scriptlets y taglibs
-   - `descriptors.md` — web.xml, ejb-jar.xml, vendor-specific
-   - `external-integrations.md` — JNDI lookups externos, JMS queues, web services
-4. **`docs/blockers.md`** — bloqueos técnicos críticos para migración
+   - `ejbs.md`: todos los EJBs con tipo, transacción, lookups
+   - `jsps.md`: JSPs con análisis de scriptlets y taglibs
+   - `descriptors.md`: web.xml, ejb-jar.xml, vendor-specific
+   - `external-integrations.md`: JNDI lookups externos, JMS queues, web services
+4. **`docs/blockers.md`**: bloqueos técnicos críticos para migración
 
 ---
 
@@ -89,7 +89,7 @@ Crear `docs/inventory/ejbs.md` con tabla:
 | Bean | Tipo | Transacción | Interface remoto | Interface local | Métodos | Archivo |
 | --- | --- | --- | --- | --- | --- | --- |
 | CustomerService | Stateless | Required | CustomerServiceRemote | CustomerServiceLocal | 12 | `com/bank/ejb/CustomerService.java` |
-| OrderProcessor | Stateful | RequiresNew | OrderProcessorRemote | — | 8 | `com/bank/ejb/OrderProcessor.java` |
+| OrderProcessor | Stateful | RequiresNew | OrderProcessorRemote |: | 8 | `com/bank/ejb/OrderProcessor.java` |
 
 **Para Stateful Session Beans, marcar explícitamente:**
 > ⚠️ Stateful Session Beans no tienen equivalente directo en Spring Boot. Requieren rediseño de estado (sesión HTTP, BD, cache distribuido). Documentar el flujo conversacional.
@@ -292,7 +292,7 @@ Cada uno = ADR específico de Fase 2.
 
 ### Paso 8: Extracción de features funcionales
 
-Después del inventario técnico, **extraer features de negocio**. Un feature NO es un EJB ni una JSP — es un caso de uso del cliente final.
+Después del inventario técnico, **extraer features de negocio**. Un feature NO es un EJB ni una JSP: es un caso de uso del cliente final.
 
 Heurísticas:
 1. Cada `.jsp` que el usuario navega típicamente representa 1 feature
@@ -312,12 +312,12 @@ desde la perspectiva del usuario final]
 ## Componentes técnicos involucrados
 
 ### Capa de presentación
-- `webapp/customer-list.jsp` — lista de clientes con filtros
-- `webapp/customer-detail.jsp` — detalle y edición
-- `webapp/customer-new.jsp` — creación
+- `webapp/customer-list.jsp`: lista de clientes con filtros
+- `webapp/customer-detail.jsp`: detalle y edición
+- `webapp/customer-new.jsp`: creación
 
 ### Capa de control
-- `com.bank.action.CustomerListAction` — Struts action
+- `com.bank.action.CustomerListAction`: Struts action
 - `com.bank.servlet.CustomerSearchServlet`
 
 ### Capa de negocio
@@ -345,11 +345,11 @@ desde la perspectiva del usuario final]
 
 - Entity Bean CMP 2.x → JPA (R-001 a R-003 actualmente en validator separado, OK)
 - WSDL del servicio de buró de crédito no disponible (solicitar al cliente)
-- Tabla `T_AUDIT_LOG` con trigger PL/SQL — decidir si trigger se mantiene o migra a application layer
+- Tabla `T_AUDIT_LOG` con trigger PL/SQL: decidir si trigger se mantiene o migra a application layer
 
 ## Estimación de tamaño
 
-[S / M / L / XL — basado en cantidad de archivos, complejidad de reglas, bloqueos]
+[S / M / L / XL: basado en cantidad de archivos, complejidad de reglas, bloqueos]
 ```
 
 ---
@@ -393,7 +393,7 @@ graph TD
 Crear `docs/assessment-summary.md` con resumen para revisar con el usuario:
 
 ```markdown
-# Resumen del Assessment — {{ProjectName}}
+# Resumen del Assessment: {{ProjectName}}
 
 ## Inventario técnico
 
@@ -447,9 +447,9 @@ Pasar a `@j2ee-planning` con foco en:
 
 - NO propones arquitectura target (eso es Fase 2)
 - NO escribes código Spring Boot o Quarkus (eso es Fase 4)
-- NO descartas componentes — los catalogas todos aunque sean obsoletos
-- NO ignoras los descriptores XML — son la fuente de verdad de la configuración
-- NO asumes que EJB 3.x es trivial — sigue requiriendo migración
+- NO descartas componentes: los catalogas todos aunque sean obsoletos
+- NO ignoras los descriptores XML: son la fuente de verdad de la configuración
+- NO asumes que EJB 3.x es trivial: sigue requiriendo migración
 
 **Cuando encuentras algo que no entiendes:**
 

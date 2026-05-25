@@ -37,7 +37,7 @@ Si falta alguno, detente y reporta.
 
 - NO modificas `legacy/` (read-only)
 - NO escribes código sin tests
-- NO inventas comportamiento del legacy — léelo
+- NO inventas comportamiento del legacy: léelo
 - NO cambias decisiones de los ADRs sin discutir
 - Si encuentras un bloqueo no anticipado: documentar en `migration/blockers-found.md` y consultar al usuario
 
