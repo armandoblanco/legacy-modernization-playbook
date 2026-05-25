@@ -1,5 +1,5 @@
 ---
-name: VB Legacy Migration Executor Agent
+name: vb-migration
 description: Agente de Fase 3 que ejecuta la migración del sistema legacy (VB6 o VB.NET) hacia .NET 8 según los ADRs aprobados en Fase 2. Bootstrappea la solución según el stack target (WinForms/WPF/Blazor), migra feature por feature con compile-and-test loop entre capas, mantiene migration-log y respeta paridad semántica con el código legacy original.
 model: Claude Sonnet 4.6 (copilot)
 tools: [search, read, edit, execute, agent, todo, read/problems, execute/runTask, execute/runInTerminal, execute/createAndRunTask, execute/getTaskOutput, web/fetch]

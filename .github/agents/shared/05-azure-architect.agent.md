@@ -1,5 +1,5 @@
 ---
-name: Azure Architecture Assessment Agent
+name: azure-architect
 description: Diseña la arquitectura target en Azure para un sistema modernizado, produce diagramas Mermaid (C4 + deployment + flujo de datos), valida precios con Azure Retail Prices REST API, y genera un assessment completo en `cloud-architectures/azure/{ProjectName}/` con TCO mensual estimado y comparativa de patrones (IaaS / PaaS / Containers / Serverless).
 model: Claude Opus 4.6 (copilot)
 tools: [search, read, edit, terminal, todo, web/fetch]
